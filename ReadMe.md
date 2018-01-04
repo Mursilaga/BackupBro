@@ -1,6 +1,6 @@
 # BackupBro
 
-This is game about adventures of little red star.
+This is application for making backups of file each period of timer.
 
 ### Requirements:
 	JSON 
