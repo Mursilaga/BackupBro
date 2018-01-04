@@ -41,6 +41,8 @@
             this.minLabel = new System.Windows.Forms.Label();
             this.secLabel = new System.Windows.Forms.Label();
             this.titleLabel = new System.Windows.Forms.Label();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numHour)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSec)).BeginInit();
@@ -56,7 +58,7 @@
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = timer_interval;
+            this.timer1.Interval = 10000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // errLabel
@@ -70,7 +72,7 @@
             // 
             // applyIntervalButton
             // 
-            this.applyIntervalButton.Location = new System.Drawing.Point(64, 122);
+            this.applyIntervalButton.Location = new System.Drawing.Point(64, 113);
             this.applyIntervalButton.Name = "applyIntervalButton";
             this.applyIntervalButton.Size = new System.Drawing.Size(137, 23);
             this.applyIntervalButton.TabIndex = 1;
@@ -150,11 +152,27 @@
             this.titleLabel.TabIndex = 8;
             this.titleLabel.Text = "Интервал создания резевных копий";
             // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(64, 142);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(137, 23);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "Выбрать файл";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(292, 273);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.titleLabel);
             this.Controls.Add(this.secLabel);
             this.Controls.Add(this.minLabel);
@@ -188,6 +206,8 @@
         private System.Windows.Forms.Label minLabel;
         private System.Windows.Forms.Label secLabel;
         private System.Windows.Forms.Label titleLabel;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button button1;
     }
 }
 

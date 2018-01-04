@@ -117,5 +117,20 @@ namespace Backup_bro
                             + timer_interval / 1000
                             + " сек применено\nи записано в файл конфигурации.";
         }
+
+        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
+        {
+            src_path = openFileDialog1.FileName.ToString();
+            config.Src = src_path;
+            File.WriteAllText(conf_path, JsonConvert.SerializeObject(config));
+
+            errLabel.Text = "Новый путь к сохраняемому файлу: "
+                            + src_path;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.ShowDialog();
+        }
     }
 }
