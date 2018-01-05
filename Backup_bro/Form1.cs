@@ -116,6 +116,8 @@ namespace Backup_bro
             errLabel.Text = "Новое значение интервала,\nравное "
                             + timer_interval / 1000
                             + " сек применено\nи записано в файл конфигурации.";
+            backup_timer.Interval = timer_interval;
+            backup_timer.Start();
         }
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
@@ -124,7 +126,7 @@ namespace Backup_bro
             config.Src = src_path;
             File.WriteAllText(conf_path, JsonConvert.SerializeObject(config), Encoding.Unicode);
 
-            errLabel.Text = "Новый путь к сохраняемому файлу: "
+            errLabel.Text = "Новый путь к сохраняемому файлу:\n"
                             + src_path;
         }
 
@@ -141,7 +143,7 @@ namespace Backup_bro
             config.Dst = dst_path;
             File.WriteAllText(conf_path, JsonConvert.SerializeObject(config), Encoding.Unicode);
 
-            errLabel.Text = "Новый путь к для резервных копий: "
+            errLabel.Text = "Новый путь к для резервных копий:\n"
                             + dst_path;
         }
 
@@ -152,7 +154,7 @@ namespace Backup_bro
             config.Dst = dst_path;
             File.WriteAllText(conf_path, JsonConvert.SerializeObject(config));
 
-            errLabel.Text = "Новый путь к для резервных копий: "
+            errLabel.Text = "Новый путь к для резервных копий:\n"
                             + dst_path;
         }
     }
