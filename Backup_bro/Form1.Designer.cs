@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.backup_timer = new System.Windows.Forms.Timer(this.components);
             this.errLabel = new System.Windows.Forms.Label();
             this.applyIntervalButton = new System.Windows.Forms.Button();
             this.numHour = new System.Windows.Forms.NumericUpDown();
@@ -41,8 +41,11 @@
             this.minLabel = new System.Windows.Forms.Label();
             this.secLabel = new System.Windows.Forms.Label();
             this.titleLabel = new System.Windows.Forms.Label();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.button1 = new System.Windows.Forms.Button();
+            this.openSrc = new System.Windows.Forms.OpenFileDialog();
+            this.setSrcButton = new System.Windows.Forms.Button();
+            this.setDstButton = new System.Windows.Forms.Button();
+            this.openDst = new System.Windows.Forms.OpenFileDialog();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             ((System.ComponentModel.ISupportInitialize)(this.numHour)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSec)).BeginInit();
@@ -55,16 +58,16 @@
             this.trayIcon.Visible = true;
             this.trayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.trayIcon_MouseDoubleClick);
             // 
-            // timer1
+            // backup_timer
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 10000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.backup_timer.Enabled = true;
+            this.backup_timer.Interval = timer_interval;
+            this.backup_timer.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // errLabel
             // 
             this.errLabel.AutoSize = true;
-            this.errLabel.Location = new System.Drawing.Point(12, 161);
+            this.errLabel.Location = new System.Drawing.Point(12, 168);
             this.errLabel.Name = "errLabel";
             this.errLabel.Size = new System.Drawing.Size(35, 13);
             this.errLabel.TabIndex = 0;
@@ -152,27 +155,42 @@
             this.titleLabel.TabIndex = 8;
             this.titleLabel.Text = "Интервал создания резевных копий";
             // 
-            // openFileDialog1
+            // openSrc
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
+            this.openSrc.FileName = "openFileDialog1";
+            this.openSrc.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
-            // button1
+            // setSrcButton
             // 
-            this.button1.Location = new System.Drawing.Point(64, 142);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(137, 23);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Выбрать файл";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.setSrcButton.Location = new System.Drawing.Point(15, 142);
+            this.setSrcButton.Name = "setSrcButton";
+            this.setSrcButton.Size = new System.Drawing.Size(104, 23);
+            this.setSrcButton.TabIndex = 9;
+            this.setSrcButton.Text = "Путь к файлу";
+            this.setSrcButton.UseVisualStyleBackColor = true;
+            this.setSrcButton.Click += new System.EventHandler(this.setSrcButton_Click);
+            // 
+            // setDstButton
+            // 
+            this.setDstButton.Location = new System.Drawing.Point(126, 142);
+            this.setDstButton.Name = "setDstButton";
+            this.setDstButton.Size = new System.Drawing.Size(167, 23);
+            this.setDstButton.TabIndex = 10;
+            this.setDstButton.Text = "Путь для сохранения копий";
+            this.setDstButton.UseVisualStyleBackColor = true;
+            this.setDstButton.Click += new System.EventHandler(this.setDstButton_Click);
+            // 
+            // openDst
+            // 
+            this.openDst.FileName = "openFileDialog1";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(292, 273);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(302, 273);
+            this.Controls.Add(this.setDstButton);
+            this.Controls.Add(this.setSrcButton);
             this.Controls.Add(this.titleLabel);
             this.Controls.Add(this.secLabel);
             this.Controls.Add(this.minLabel);
@@ -196,7 +214,7 @@
         #endregion
 
         private System.Windows.Forms.NotifyIcon trayIcon;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer backup_timer;
         private System.Windows.Forms.Label errLabel;
         private System.Windows.Forms.Button applyIntervalButton;
         private System.Windows.Forms.NumericUpDown numHour;
@@ -206,8 +224,11 @@
         private System.Windows.Forms.Label minLabel;
         private System.Windows.Forms.Label secLabel;
         private System.Windows.Forms.Label titleLabel;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.OpenFileDialog openSrc;
+        private System.Windows.Forms.Button setSrcButton;
+        private System.Windows.Forms.Button setDstButton;
+        private System.Windows.Forms.OpenFileDialog openDst;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
     }
 }
 

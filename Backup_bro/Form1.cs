@@ -67,7 +67,7 @@ namespace Backup_bro
                 else
                 {
                     errLabel.Text += "Файл для создания копий не найден.\nСоздание копий отключено\n";
-                    timer1.Enabled = false;
+                    backup_timer.Enabled = false;
                 }
             }
             else
@@ -75,7 +75,7 @@ namespace Backup_bro
                 errLabel.Text = "Файл конфигурации не найден\nОжидаемый путь: "
                              + Path.GetFullPath(conf_path)
                              + "\nПрограмма не инициализирована\nСоздание копий отключено";
-                timer1.Enabled = false;
+                backup_timer.Enabled = false;
             }
 
         }
@@ -98,7 +98,7 @@ namespace Backup_bro
         private void timer1_Tick(object sender, EventArgs e)
         {
               DateTime date = DateTime.Now;
-              string dst = dst_path + date.ToString("dd.MM.yy") + "//";
+              string dst = dst_path + "//" + date.ToString("dd.MM.yy") + "//";
               Directory.CreateDirectory(dst);
               dst += date.ToString("HH.mm.ss") + src_exten;
               File.Copy(src_path, dst);
@@ -120,7 +120,7 @@ namespace Backup_bro
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
-            src_path = openFileDialog1.FileName.ToString();
+            src_path = openSrc.FileName.ToString();
             config.Src = src_path;
             File.WriteAllText(conf_path, JsonConvert.SerializeObject(config));
 
@@ -128,9 +128,32 @@ namespace Backup_bro
                             + src_path;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void setSrcButton_Click(object sender, EventArgs e)
         {
-            openFileDialog1.ShowDialog();
+            openSrc.ShowDialog();
+        }
+
+        private void setDstButton_Click(object sender, EventArgs e)
+        {
+            //openDst.ShowDialog();
+            folderBrowserDialog1.ShowDialog();
+            dst_path = folderBrowserDialog1.SelectedPath.ToString();
+            config.Dst = dst_path;
+            File.WriteAllText(conf_path, JsonConvert.SerializeObject(config));
+
+            errLabel.Text = "Новый путь к для резервных копий: "
+                            + dst_path;
+        }
+
+        private void openDst_FileOk(object sender, CancelEventArgs e)
+        {
+            dst_path = openDst.FileName.ToString();
+
+            config.Dst = dst_path;
+            File.WriteAllText(conf_path, JsonConvert.SerializeObject(config));
+
+            errLabel.Text = "Новый путь к для резервных копий: "
+                            + dst_path;
         }
     }
 }
