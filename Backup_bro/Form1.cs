@@ -111,7 +111,7 @@ namespace Backup_bro
             timer_interval += (Int32)numHour.Value * 3600000;
             config.Interval = timer_interval.ToString();
             string writeConf = JsonConvert.SerializeObject(config);
-            File.WriteAllText(conf_path, writeConf);
+            File.WriteAllText(conf_path, writeConf, Encoding.Unicode);
 
             errLabel.Text = "Новое значение интервала,\nравное "
                             + timer_interval / 1000
@@ -122,7 +122,7 @@ namespace Backup_bro
         {
             src_path = openSrc.FileName.ToString();
             config.Src = src_path;
-            File.WriteAllText(conf_path, JsonConvert.SerializeObject(config));
+            File.WriteAllText(conf_path, JsonConvert.SerializeObject(config), Encoding.Unicode);
 
             errLabel.Text = "Новый путь к сохраняемому файлу: "
                             + src_path;
@@ -139,7 +139,7 @@ namespace Backup_bro
             folderBrowserDialog1.ShowDialog();
             dst_path = folderBrowserDialog1.SelectedPath.ToString();
             config.Dst = dst_path;
-            File.WriteAllText(conf_path, JsonConvert.SerializeObject(config));
+            File.WriteAllText(conf_path, JsonConvert.SerializeObject(config), Encoding.Unicode);
 
             errLabel.Text = "Новый путь к для резервных копий: "
                             + dst_path;
