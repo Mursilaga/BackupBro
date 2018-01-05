@@ -16,8 +16,6 @@ namespace Backup_bro
     {
         private Config config;
         private string conf_path = @"backup_config.txt";
-        private string src_path = "";
-        private string dst_path = "";
         private string src_exten = "";
         private Int32 timer_interval = 600000; //10 sec
         bool IsVisibilityChangeAllowed { get; set; }
@@ -37,10 +35,7 @@ namespace Backup_bro
             {
                 string readConf = File.ReadAllText(conf_path, Encoding.Default);
                 config = JsonConvert.DeserializeObject<Config>(readConf);
-                src_path = config.Src;
-                dst_path = config.Dst;
-                timer_interval = Convert.ToInt32(config.Interval, 10);
-                
+                timer_interval = Convert.ToInt32(config.Interval, 10);  
             }
             else
             {
@@ -51,17 +46,17 @@ namespace Backup_bro
             if(exist)
             {
                 errLabel.Text = "Файл конфигурации успешно открыт\nSrc: "
-                             + src_path
+                             + config.Src
                              + "\nDst: "
-                             + dst_path
+                             + config.Dst
                              + "\nInterval: "
                              + timer_interval / 1000
                              + " sec\n";
                 
-                if(File.Exists(src_path))
+                if(File.Exists(config.Src))
                 {
                     errLabel.Text += "Файл для создания копий успешно найден";
-                    src_exten = Path.GetExtension(src_path);
+                    src_exten = Path.GetExtension(config.Src);
                     IsVisibilityChangeAllowed = false;
                 }
                 else
@@ -98,10 +93,10 @@ namespace Backup_bro
         private void timer1_Tick(object sender, EventArgs e)
         {
               DateTime date = DateTime.Now;
-              string dst = dst_path + "//" + date.ToString("dd.MM.yy") + "//";
+              string dst = config.Dst + "//" + date.ToString("dd.MM.yy") + "//";
               Directory.CreateDirectory(dst);
               dst += date.ToString("HH.mm.ss") + src_exten;
-              File.Copy(src_path, dst);
+              File.Copy(config.Src, dst);
         }
 
         private void applyIntervalButton_Click(object sender, EventArgs e)
@@ -120,42 +115,29 @@ namespace Backup_bro
             backup_timer.Start();
         }
 
-        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
-        {
-            src_path = openSrc.FileName.ToString();
-            config.Src = src_path;
-            File.WriteAllText(conf_path, JsonConvert.SerializeObject(config), Encoding.Unicode);
-
-            errLabel.Text = "Новый путь к сохраняемому файлу:\n"
-                            + src_path;
-        }
 
         private void setSrcButton_Click(object sender, EventArgs e)
         {
-            openSrc.ShowDialog();
+            if(openSrc.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                config.Src = openSrc.FileName.ToString();
+                File.WriteAllText(conf_path, JsonConvert.SerializeObject(config), Encoding.Unicode);
+
+                errLabel.Text = "Новый путь к сохраняемому файлу:\n"
+                                + config.Src;
+            }
         }
 
         private void setDstButton_Click(object sender, EventArgs e)
         {
-            //openDst.ShowDialog();
-            folderBrowserDialog1.ShowDialog();
-            dst_path = folderBrowserDialog1.SelectedPath.ToString();
-            config.Dst = dst_path;
-            File.WriteAllText(conf_path, JsonConvert.SerializeObject(config), Encoding.Unicode);
+            if (openDst.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                config.Dst = openDst.SelectedPath.ToString();
+                File.WriteAllText(conf_path, JsonConvert.SerializeObject(config), Encoding.Unicode);
 
-            errLabel.Text = "Новый путь к для резервных копий:\n"
-                            + dst_path;
-        }
-
-        private void openDst_FileOk(object sender, CancelEventArgs e)
-        {
-            dst_path = openDst.FileName.ToString();
-
-            config.Dst = dst_path;
-            File.WriteAllText(conf_path, JsonConvert.SerializeObject(config));
-
-            errLabel.Text = "Новый путь к для резервных копий:\n"
-                            + dst_path;
+                errLabel.Text = "Новый путь к для резервных копий:\n"
+                                + config.Dst;
+            }
         }
     }
 }

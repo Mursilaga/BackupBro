@@ -44,8 +44,7 @@
             this.openSrc = new System.Windows.Forms.OpenFileDialog();
             this.setSrcButton = new System.Windows.Forms.Button();
             this.setDstButton = new System.Windows.Forms.Button();
-            this.openDst = new System.Windows.Forms.OpenFileDialog();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.openDst = new System.Windows.Forms.FolderBrowserDialog();
             ((System.ComponentModel.ISupportInitialize)(this.numHour)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSec)).BeginInit();
@@ -158,7 +157,6 @@
             // openSrc
             // 
             this.openSrc.FileName = "openFileDialog1";
-            this.openSrc.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
             // setSrcButton
             // 
@@ -180,10 +178,6 @@
             this.setDstButton.UseVisualStyleBackColor = true;
             this.setDstButton.Click += new System.EventHandler(this.setDstButton_Click);
             // 
-            // openDst
-            // 
-            this.openDst.FileName = "openFileDialog1";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -201,7 +195,7 @@
             this.Controls.Add(this.applyIntervalButton);
             this.Controls.Add(this.errLabel);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "BackupBro";
             this.Resize += new System.EventHandler(this.Form1_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.numHour)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMin)).EndInit();
@@ -227,8 +221,7 @@
         private System.Windows.Forms.OpenFileDialog openSrc;
         private System.Windows.Forms.Button setSrcButton;
         private System.Windows.Forms.Button setDstButton;
-        private System.Windows.Forms.OpenFileDialog openDst;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.FolderBrowserDialog openDst;
     }
 }
 
